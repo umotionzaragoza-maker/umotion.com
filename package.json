@@ -1,0 +1,39 @@
+{
+  "name": "umotion-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Web oficial de Umotion",
+  "scripts": {
+    "dev": "next dev --port 5200",
+    "build": "next build",
+    "start": "next start --port 5201",
+    "typecheck": "tsc --noEmit",
+    "test": "node --no-warnings --import ./scripts/alias.mjs --test tests/*.test.ts",
+    "check:rutas": "node --no-warnings scripts/comprobar-rutas.mjs http://localhost:5201",
+    "medir": "node --no-warnings scripts/medir-rendimiento.mjs",
+    "auditar": "node --no-warnings scripts/auditar.mjs"
+  },
+  "engines": {
+    "node": ">=20.9"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@vercel/analytics": "^2.0.1",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26",
+    "next": "^16.3.6",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "sharp": "^0.35.4",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.6.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3"
+  }
+}
