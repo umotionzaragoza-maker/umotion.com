@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
-import { Cercania } from "@/components/portada/Cercania";
-import { Configurador } from "@/components/portada/Configurador";
-import { Heroe } from "@/components/portada/Heroe";
-import { Oferta } from "@/components/portada/Oferta";
-import { Pasos } from "@/components/portada/Pasos";
-import { QueHacemos } from "@/components/portada/QueHacemos";
+import { Portada } from "@/components/cinematica/Portada";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faq } from "@/data/faq";
 import { faqJsonLd, metadatos } from "@/lib/seo";
@@ -19,15 +14,11 @@ export const metadata: Metadata = {
   title: { absolute: "Umotion · Webs, marketing y automatización con IA en Zaragoza" },
 };
 
+/** Portada cinemática (v3). Guion en docs/GUION-WEB.md; textos en src/data/guion.ts. */
 export default function Inicio() {
   return (
     <>
-      <Heroe />
-      <QueHacemos />
-      <Configurador />
-      <Pasos />
-      <Oferta />
-      <Cercania />
+      <Portada />
       <JsonLd data={faqJsonLd(faq)} />
     </>
   );

@@ -41,21 +41,27 @@ export function Cabecera() {
   useEffect(() => setMenu(false), [pathname]);
 
   // v2: cabecera clara siempre (como en el diseño), translúcida para que se intuya lo que pasa por debajo.
-  const fondo = desplazado
-    ? "bg-papel/85 backdrop-blur-xl shadow-[0_1px_0_rgb(8_10_20/0.08)]"
-    : "bg-papel/70 backdrop-blur-xl shadow-[0_1px_0_rgb(8_10_20/0.05)]";
+  // v3: en la portada cinemática, cabecera oscura y transparente sobre la escena 3D.
+  const cine = pathname === "/";
+  const fondo = cine
+    ? desplazado
+      ? "bg-noche/55 backdrop-blur-xl shadow-[0_1px_0_rgb(248_249_252/0.06)] text-crema"
+      : "bg-transparent text-crema"
+    : desplazado
+      ? "bg-papel/85 backdrop-blur-xl shadow-[0_1px_0_rgb(8_10_20/0.08)] text-tinta"
+      : "bg-papel/70 backdrop-blur-xl shadow-[0_1px_0_rgb(8_10_20/0.05)] text-tinta";
 
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 text-tinta transition-[transform,background-color] duration-500 ease-[var(--ease-seda)] ${fondo} ${
+        className={`fixed inset-x-0 top-0 z-50 transition-[transform,background-color] duration-500 ease-[var(--ease-seda)] ${fondo} ${
           oculta && !menu ? "-translate-y-full" : "translate-y-0"
         }`}
-        data-cabecera="claro"
+        data-cabecera={cine ? "oscuro" : "claro"}
       >
         <div className="marco flex h-[var(--cabecera)] items-center justify-between gap-6">
           <Link href="/" className="relative z-10 -m-2 p-2" aria-label="Umotion, ir al inicio">
-            <Logo sobre="claro" prioridad />
+            <Logo sobre={cine ? "oscuro" : "claro"} prioridad />
           </Link>
 
           <nav aria-label="Principal" className="hidden lg:block">
@@ -68,10 +74,11 @@ export function Cabecera() {
                       href={n.href}
                       aria-current={activo ? "page" : undefined}
                       className={`inline-flex min-h-11 items-center rounded-full px-4 text-[0.93rem] font-medium transition-colors ${
-                        activo ? "bg-tinta/[0.07]" : "hover:bg-tinta/[0.04]"
+                        cine ? "gap-1 lowercase tracking-wide hover:bg-crema/[0.06]" : activo ? "bg-tinta/[0.07]" : "hover:bg-tinta/[0.04]"
                       }`}
                     >
                       {n.etiqueta}
+                      {cine && <Icono nombre="flechaArriba" className="size-3 opacity-70" />}
                     </Link>
                   </li>
                 );
@@ -90,7 +97,7 @@ export function Cabecera() {
             <Link
               href="/diagnostico"
               onClick={() => track("cta_click", { cta: "diagnostico", origen: "cabecera" })}
-              className="btn btn-sm max-sm:!px-4"
+              className={cine ? "cine-boton cine-boton--sm" : "btn btn-sm max-sm:!px-4"}
               aria-current={pathname === "/diagnostico" ? "page" : undefined}
             >
               <span className="sm:hidden">Diagnóstico</span>
@@ -100,7 +107,7 @@ export function Cabecera() {
             <button
               type="button"
               onClick={() => setMenu(true)}
-              className="inline-flex size-11 items-center justify-center rounded-full bg-tinta/[0.06] lg:hidden"
+              className={`inline-flex size-11 items-center justify-center rounded-full lg:hidden ${cine ? "bg-crema/[0.08]" : "bg-tinta/[0.06]"}`}
               aria-label="Abrir menú"
               aria-expanded={menu}
               aria-controls="menu-completo"

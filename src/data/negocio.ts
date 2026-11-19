@@ -30,9 +30,9 @@ export const negocio = {
   whatsapp: "34633275909",
   email: "umotionzaragoza@gmail.com", // Fuente: cliente, 30/09/2026
 
-  /** Sin redes públicas todavía. Vacías = no se muestran. */
+  /** Redes públicas. Vacías = no se muestran. Instagram @umotion.ia (fuente: equipo, CLAUDE.md del proyecto). */
   redes: {
-    instagram: "",
+    instagram: "https://www.instagram.com/umotion.ia/",
     linkedin: "",
   },
 
